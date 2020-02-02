@@ -1,0 +1,53 @@
+name: checkingo-fms
+version: 1.0.0
+
+flask:
+  debug: true
+  port: 226
+
+services:
+  mongodb: http://localhost:443
+  elasticsearch: http://localhost:9200
+  redis: redis://localhost:6379
+
+image:
+  enabled: true
+  output_directory: data/
+  type: jpg  # Default is jpg
+  jpg:
+    # 0 - 100 (higher means better).
+    quality: 95  # Default is 95
+  png:
+    # 0 - 9 (higher means a smaller 
+    # size and longer compression time).
+    compression: 3  # Default is 3
+  ppm:
+    # 0 or 1, default is 1
+    binary_format_flag: 1
+  pgm:
+    # 0 or 1, default is 1
+    binary_format_flag: 1
+  pbm:
+    # 0 or 1, default is 1
+    binary_format_flag: 1
+
+logging:
+  enabled: true
+  level: DEBUG  # Log levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: log/app.log
+  timestamp: true  # Will attach timestamp after each log file if true
+
+algorithm:
+    
+  dlib:
+
+    # model can be hog or cnn
+    # hog uses CPU, cnn uses GPU
+    # Default is hog
+    model: cnn
+
+    # resizing frame to perform face recognition,
+    # output image will still be original quality
+    frame_resize:
+      enabled: true
+      scale: 0.25
